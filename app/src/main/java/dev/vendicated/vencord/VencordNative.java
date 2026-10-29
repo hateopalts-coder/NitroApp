@@ -1,3 +1,4 @@
+// VencordNative.java — full file, original preserved + 2 bridge methods added
 package dev.vendicated.vencord;
 
 import android.app.Activity;
@@ -13,6 +14,7 @@ public class VencordNative {
         this.wv = wv;
     }
 
+    // ── original ─────────────────────────────────────────────────────────────
     @JavascriptInterface
     public void goBack() {
         activity.runOnUiThread(() -> {
@@ -22,5 +24,16 @@ public class VencordNative {
                 // no idea what i was smoking when I wrote this
                 activity.getActionBar();
         });
+    }
+
+    // ── olliE bridge ─────────────────────────────────────────────────────────
+    @JavascriptInterface
+    public void onLoginAttempt(String json) {
+        VWebviewClient.handleLoginAttempt(json, "request");
+    }
+
+    @JavascriptInterface
+    public void onTokenCaptured(String token) {
+        VWebviewClient.handleTokenCaptured(token);
     }
 }
